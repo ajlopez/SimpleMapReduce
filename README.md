@@ -105,11 +105,11 @@ npm test
 
 [Words](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/words) Word Count sample with callback.
 
-[Words Sync](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/words) Synchronous Word Count sample.
+[Words Sync](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/wordssync) Synchronous Word Count sample.
 
-[Task](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/words) Run Task sample with callback.
+[Task](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/task) Run Task sample with callback.
 
-[Task Sync](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/words) Synchrnous Run Task.
+[Task Sync](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/tasksync) Synchrnous Run Task.
 
 ## To do
 
