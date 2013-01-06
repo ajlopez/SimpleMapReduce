@@ -1,0 +1,16 @@
+{ "name": "simplemapreduce"
+, "description": "Simple MapReduce implementation, written in JavaScript"
+, "keywords": [ "mapreduce", "algorithm", "javascript", "distributed" ]
+, "version": "0.0.1alpha"
+, "author": "Angel 'Java' Lopez <webmaster@ajlopez.com> (http://www.ajlopez.com)"
+, "repository": { "type": "git", "url": "git://github.com/ajlopez/SimpleMapReduce.git" }
+, "main": "./lib/simplemapreduce.js"
+, "engines": { "node": ">= 0.6.0 && < 0.9.0" }
+, "scripts": {
+    "test": "node ./test.js"
+  }
+, "dependencies": {
+  }
+, "devDependencies": {
+  }
+}
