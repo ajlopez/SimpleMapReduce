@@ -1,6 +1,6 @@
 # SimpleMapReduce
 
-Simple MapReduce implementation, written in JavaScript. WIP.
+Simple MapReduce implementation, written in JavaScript.
 
 ## Installation
 
@@ -83,6 +83,11 @@ TBD
 ## To do
 
 - Samples
+
+## Versions
+
+- 0.0.1 : Published
+- 0.0.2 : Under development
 
 ## Contribution
 
