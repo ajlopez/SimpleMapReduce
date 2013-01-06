@@ -11,7 +11,7 @@ npm install
 ```
 This command installs the needed modules: `simplemessages` for sending and receiving messages between server/clients, and `simplefunc` to
 encode/decode simple objects with instance functions. The task (an object with functions) is serialized/deserialized, so
-the functions are defined at server but they are run at workers.
+the functions are defined at server but they run at workers.
 
 ## Run
 
