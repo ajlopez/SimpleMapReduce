@@ -4,8 +4,8 @@ var simplemapreduce = require('../'),
 
 // runSync defined
 
-assert.ok(simplemapreduce.runSync);
-assert.equal(typeof simplemapreduce.runSync, 'function');
+assert.ok(simplemapreduce.run);
+assert.equal(typeof simplemapreduce.run, 'function');
 
 // Run count words
 
