@@ -19,6 +19,8 @@ Reference in your program:
 var simplemapreduce = require('simplemapreduce');
 ```
 
+### Run
+
 Run
 ```js
 simplemapreduce.runSync(items, mapfn, newfn, processfn);
@@ -66,7 +68,30 @@ simplemapreduce.run(
 );
 ```
 
-TBD
+### Run Task
+
+Alternatively, you can define a task, an object with functions:
+- `getItems()`: return the items to be processed.
+- `getKey(item)`: maps an item to its associated key.
+- `getResult(item, key)`: creates a new object/value to be associated to the key/item. Usually it's used to accumulate results.
+- `processItem(item, result, [key, map])`: function that process an item, usually updating the result object.
+
+Example:
+
+```js
+var task = {
+    items: ["A", "word", "is", "a", "word"], 
+    getItems: function () { return this.items; },
+    getKey: function (item) { return item.toLowerCase(); },
+    getResult: function (item, key) { return { count: 0 }; },
+    processItem: function (item, result) { result.count++; }
+};
+
+simplemapreduce.runTask(task, function (result) { console.dir(result); });
+```
+Notice that in this case, `getItems` returns items defined in the same task. You can provide a more complex function, i.e.
+reading an stream or file.
+
 ## Development
 
 ```
@@ -78,11 +103,18 @@ npm test
 
 ## Samples
 
-TBD
+[Words](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/words) Word Count sample with callback.
+
+[Words Sync](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/words) Synchronous Word Count sample.
+
+[Task](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/words) Run Task sample with callback.
+
+[Task Sync](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/words) Synchrnous Run Task.
 
 ## To do
 
-- Samples
+- Improve async procesing
+- Distributed sample
 
 ## Versions
 
