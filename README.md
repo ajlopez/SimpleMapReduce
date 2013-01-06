@@ -21,7 +21,7 @@ var simplemapreduce = require('simplemapreduce');
 
 ### Run
 
-Run
+Synchronous run
 ```js
 simplemapreduce.runSync(items, mapfn, newfn, processfn);
 ```

@@ -1,4 +1,4 @@
-# Word Count sample with callback
+# Synchronous Word Count sample
 
 The clasical program counting words.
 
@@ -13,13 +13,14 @@ The code:
 ```
 var simplemapreduce = require('../..');
 
-simplemapreduce.run(
+var result = simplemapreduce.runSync(
     ["A", "word", "is", "a", "word"], 
     function (item) { return item.toLowerCase(); },
     function (item, key) { return { count: 0 }; },
-    function (item, result) { result.count++; },
-    function (result) { console.dir(result); }
+    function (item, result) { result.count++; }
 );
+
+console.dir(result);
 ```
 
 The output:
