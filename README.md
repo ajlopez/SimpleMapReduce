@@ -21,7 +21,7 @@ var simplemapreduce = require('simplemapreduce');
 
 Run
 ```js
-simplemapreduce.run(items, mapfn, newfn, processfn);
+simplemapreduce.runSync(items, mapfn, newfn, processfn);
 ```
 where
 
@@ -46,6 +46,24 @@ console.dir(result);
 Output
 ```
 { a: { count: 2 }, word: { count: 2 }, is: { count: 1 } }
+```
+
+There is a run with callback:
+```js
+simplemapreduce.run(items, mapfn, newfn, processfn);
+```
+under development. Current implementation internally uses `runSync`.
+Example:
+```js
+simplemapreduce.run(
+    ["A", "word", "is", "a", "word"], 
+    function (item) { return item.toLowerCase(); },
+    function (item, key) { return { count: 0 }; },
+    function (item, result) { result.count++; },
+    function (result) {
+        console.dir(result);
+    }
+);
 ```
 
 TBD
