@@ -118,8 +118,9 @@ npm test
 
 ## Versions
 
-- 0.0.1 : Published
-- 0.0.2 : Under development
+- 0.0.1 : Published, run, runSync
+- 0.0.2 : Published, runTask, runTaskSync, first samples
+- 0.0.3 : In master, work in progress. Distributed sample.
 
 ## Contribution
 
