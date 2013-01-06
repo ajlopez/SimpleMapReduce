@@ -111,6 +111,9 @@ npm test
 
 [Task Sync](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/tasksync) Synchrnous Run Task.
 
+[Distributed Workers](https://github.com/ajlopez/SimpleMapReduce/tree/master/samples/worker) A server sending tasks
+to distributed workers.
+
 ## To do
 
 - Improve async procesing

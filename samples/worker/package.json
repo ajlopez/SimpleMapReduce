@@ -1,0 +1,9 @@
+{
+  "name": "worker-example",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "simplemessages": "0.0.1",
+    "simplefunc": "0.0.1"
+  }
+}
