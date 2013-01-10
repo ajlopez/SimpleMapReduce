@@ -2,7 +2,7 @@
 var simplemapreduce = require('../'),
     assert = require('assert');
 
-// runSync defined
+// mapReduceSync defined
 
 assert.ok(simplemapreduce.mapReduceSync);
 assert.equal(typeof simplemapreduce.mapReduceSync, 'function');
