@@ -32,15 +32,16 @@ simplemapreduce.mapReduce(
     }
 );
 
-// Receives error from map
+// Receives error from reduce
 
 simplemapreduce.mapReduce(
     ["A", "word", "is", "a", "word"], // items to process
-    function (key, value, ctx, next) { throw 'map error'; }, // map
+    function (key, value, ctx, next) { ctx.emit(value.toLowerCase(), 1); next(); }, // map
     function (key, values, ctx, next) { // reduce
+        throw 'reduce error';
     },
     function (err, result) {
         assert.ok(err);
-        assert.equal(err, 'map error');
+        assert.equal(err, 'reduce error');
     }
 );
