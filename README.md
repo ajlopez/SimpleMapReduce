@@ -46,10 +46,41 @@ var result = simplemapreduce.mapReduceSync(
     }
 );
 
-// result.a === 2
-// result.word === 2
-// result.is === 1
 ```
+
+### Map Reduce
+```js
+simplemapreduce.mapReduceSync(items, mapfn, reducefn, callbackfn);
+```
+where
+
+- `items`: to be processed. In the current version, it's an object with keys that can be obtained using `Object.keys(items)`.
+- `mapfn(key, value, ctx, next)`: given a key/value pair, it emits zero, one or more key/value pairs using `ctx`.
+See example below.
+- `reducefn(key, values, ctx, next)`: given a key and its associated values, emits zero, one or more key/value pairs using `ctx`.
+- `callbackfn(err, results)`: `results` results is a dictionary with the key/value reduce outcome.
+
+```js
+simplemapreduce.mapReduce(
+    ["A", "word", "is", "a", "word"], // items to process
+    function (key, value, ctx, next) { ctx.emit(value.toLowerCase(), 1); next(); }, // map
+    function (key, values, ctx, next) { // reduce
+        var total = 0;
+        values.forEach(function (value) {
+            total += value;
+        });
+        ctx.emit(key, total);
+        next();
+    },
+    function (err, result) {
+		// result.a === 2
+		// result.word === 2
+		// result.is === 1
+    }
+);
+```
+The above example is simple: it is executed without doing async calls in the map/reduce functions. But you
+can call next callback at any time.
 
 ### Run
 
