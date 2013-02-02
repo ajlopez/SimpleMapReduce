@@ -31,3 +31,16 @@ simplemapreduce.mapReduce(
         assert.equal(result.is, 1);
     }
 );
+
+// Receives error from map
+
+simplemapreduce.mapReduce(
+    ["A", "word", "is", "a", "word"], // items to process
+    function (key, value, ctx, next) { throw 'map error'; }, // map
+    function (key, values, ctx, next) { // reduce
+    },
+    function (err, result) {
+        assert.ok(err);
+        assert.equal(err, 'map error');
+    }
+);
