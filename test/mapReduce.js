@@ -20,7 +20,8 @@ simplemapreduce.mapReduce(
         ctx.emit(key, total);
         next();
     },
-    function (result) {
+    function (err, result) {
+        assert.ok(!err);
         assert.ok(result);
         assert.ok(result.a);
         assert.equal(result.a, 2);
