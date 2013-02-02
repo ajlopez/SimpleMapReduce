@@ -12,9 +12,9 @@ assert.equal(typeof simplemapreduce.runTaskSync, 'function');
 var task = {
     items: ["A", "word", "is", "a", "word"], 
     getItems: function () { return this.items; },
-    getKey: function (item) { return item.toLowerCase(); },
-    getResult: function (item, key) { return { word: key, count: 0 }; },
-    processItem: function (item, result) { result.count++; }
+    map: function (key, value, context) { context.emit(value.toLowerCase(), 1); },
+    newResult: function (key) { return { word: key, count: 0 }; },
+    process: function (key, value, result) { result.count += value; }
 };
 
 var result = simplemapreduce.runTaskSync(task);

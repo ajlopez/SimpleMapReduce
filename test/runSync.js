@@ -11,9 +11,9 @@ assert.equal(typeof simplemapreduce.runSync, 'function');
 
 var result = simplemapreduce.runSync(
     ["A", "word", "is", "a", "word"], 
-    function (item) { return item.toLowerCase(); },
-    function (item, key) { return { word: key, count: 0 }; },
-    function (item, result) { result.count++; }
+    function (key, value, ctx) { ctx.emit(value.toLowerCase(), 1); },
+    function (key) { return { word: key, count: 0 }; },
+    function (key, value, result) { result.count += value; }
 );
 
 assert.ok(result);
