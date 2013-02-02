@@ -19,6 +19,38 @@ Reference in your program:
 var simplemapreduce = require('simplemapreduce');
 ```
 
+### Synchronous Map Reduce
+
+Synchronous run
+```js
+simplemapreduce.mapReduceSync(items, mapfn, reducefn);
+```
+where
+
+- `items`: to be processed. In the current version, it's an object with `forEach` function defined.
+- `mapfn(key, value, ctx)`: given a key/value pair, it emits zero, one or more key/value pairs using `ctx`.
+See example below.
+- `reducefn(key, values, ctx)`: given a key and its associated values, emits zero, one or more key/value pairs using `ctx`.
+
+Word count example
+```js
+var result = simplemapreduce.mapReduceSync(
+    ["A", "word", "is", "a", "word"], // items to process
+    function (key, value, ctx) { ctx.emit(value.toLowerCase(), 1); }, // map
+    function (key, values, ctx) { // reduce
+        var total = 0;
+        values.forEach(function (value) {
+            total += value;
+        });
+        ctx.emit(key, total);
+    }
+);
+
+// result.a === 2
+// result.word === 2
+// result.is === 1
+```
+
 ### Run
 
 Synchronous run
