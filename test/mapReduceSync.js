@@ -11,7 +11,7 @@ assert.equal(typeof simplemapreduce.mapReduceSync, 'function');
 
 var result = simplemapreduce.mapReduceSync(
     ["A", "word", "is", "a", "word"], // items to process
-    function (key, item, ctx) { ctx.emit(item.toLowerCase(), 1); }, // map
+    function (key, value, ctx) { ctx.emit(value.toLowerCase(), 1); }, // map
     function (key, values, ctx) { // reduce
         var total = 0;
         values.forEach(function (value) {
