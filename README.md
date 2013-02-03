@@ -91,9 +91,9 @@ simplemapreduce.runSync(items, mapfn, newfn, processfn);
 where
 
 - `items`: to be processed. In the current version, it's an object with `forEach` function defined.
-- `mapfn(item)`: given an item to be processed, it returns it's associated key..
-- `newfn(item, key)`: given a new key, it returns the new object to be associated with that key.
-- `processfn(item, result, [key, map])`: process an item, usually modifying its associated result object.
+- `mapfn(key, value, ctx)`: given a key/value pair, it emits zero, one or more key/value pairs using `ctx`.
+- `newfn(key)`: given a new key, it returns the new object to be associated with that key.
+- `processfn(key, value, result)`: process an item, usually modifying its associated result object.
 In addition, it could receive and use the associated key and the `map`, the dictionary that is being build by the
 process.
 
@@ -101,9 +101,9 @@ Example
 ```js
 var result = simplemapreduce.runSync(
     ["A", "word", "is", "a", "word"], 
-    function (item) { return item.toLowerCase(); },
-    function (item, key) { return { count: 0 }; },
-    function (item, result) { result.count++; }
+    function (key, value, ctx) { ctx.emit(value.toLowerCase(), 1); },
+    function (key) { return { word: key, count: 0 }; },
+    function (key, value, result) { result.count += value; }
 );
 console.dir(result);
 ```
@@ -120,14 +120,16 @@ simplemapreduce.run(items, mapfn, newfn, processfn);
 under development. Current implementation internally uses `runSync`.
 Example:
 ```js
-simplemapreduce.run(
     ["A", "word", "is", "a", "word"], 
-    function (item) { return item.toLowerCase(); },
-    function (item, key) { return { count: 0 }; },
-    function (item, result) { result.count++; },
-    function (result) {
-        console.dir(result);
-    }
+    function (key, value, context) { context.emit(value.toLowerCase(), 1); },
+    function (key) { return { word: key, count: 0 }; },
+    function (key, value, result) { result.count += value; },
+    function (err, result) {
+		if (err)
+			console.log(err);
+		else
+			console.dir(result);
+	}
 );
 ```
 
@@ -135,9 +137,9 @@ simplemapreduce.run(
 
 Alternatively, you can define a task, an object with functions:
 - `getItems()`: return the items to be processed.
-- `getKey(item)`: maps an item to its associated key.
-- `getResult(item, key)`: creates a new object/value to be associated to the key/item. Usually it's used to accumulate results.
-- `processItem(item, result, [key, map])`: function that process an item, usually updating the result object.
+- `mapfn(key, value, ctx, next)`: given a key/value pair, it emits zero, one or more key/value pairs using `ctx`.
+- `newResult(key)`: creates a new object/value to be associated to the key/item. Usually it's used to accumulate results.
+- `process(key, value, result)`: function that process a key/value pair, usually updating the associated result object.
 
 Example:
 
@@ -145,12 +147,12 @@ Example:
 var task = {
     items: ["A", "word", "is", "a", "word"], 
     getItems: function () { return this.items; },
-    getKey: function (item) { return item.toLowerCase(); },
-    getResult: function (item, key) { return { count: 0 }; },
-    processItem: function (item, result) { result.count++; }
+    map: function (key, value, context) { context.emit(value.toLowerCase(), 1); },
+    newResult: function (key) { return { count: 0 }; },
+    process: function (key, value, result) { result.count += value; }
 };
 
-simplemapreduce.runTask(task, function (result) { console.dir(result); });
+simplemapreduce.runTask(task, function (err, result) { console.dir(result); });
 ```
 Notice that in this case, `getItems` returns items defined in the same task. You can provide a more complex function, i.e.
 reading an stream or file.
