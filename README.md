@@ -117,14 +117,13 @@ There is a run with callback:
 ```js
 simplemapreduce.run(items, mapfn, newfn, processfn);
 ```
-under development. Current implementation internally uses `runSync`.
-Example:
+Example, see the use of `next`, received as last parameter by `mapfn` and `processfn`:
 ```js
 simplemapreduce.run(
     ["A", "word", "is", "a", "word"], 
-    function (key, value, context) { context.emit(value.toLowerCase(), 1); },
+    function (key, value, context, next) { context.emit(value.toLowerCase(), 1); next(); },
     function (key) { return { word: key, count: 0 }; },
-    function (key, value, result) { result.count += value; },
+    function (key, value, result, next) { result.count += value; next(); },
     function (err, result) {
 		if (err)
 			console.log(err);
