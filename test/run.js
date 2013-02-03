@@ -11,7 +11,7 @@ assert.equal(typeof simplemapreduce.run, 'function');
 
 simplemapreduce.run(
     ["A", "word", "is", "a", "word"], 
-    function (key, value, context) { context.emit(value.toLowerCase(), 1); },
+    function (key, value, context, next) { context.emit(value.toLowerCase(), 1); next() },
     function (key) { return { word: key, count: 0 }; },
     function (key, value, result) { result.count += value; },
     function (err, result) {

@@ -58,7 +58,7 @@ where
 - `mapfn(key, value, ctx, next)`: given a key/value pair, it emits zero, one or more key/value pairs using `ctx`.
 See example below.
 - `reducefn(key, values, ctx, next)`: given a key and its associated values, emits zero, one or more key/value pairs using `ctx`.
-- `callbackfn(err, results)`: `results` results is a dictionary with the key/value reduce outcome.
+- `callbackfn(err, results)`: `results` is a dictionary with the key/value reduce outcome.
 
 ```js
 simplemapreduce.mapReduce(
@@ -120,6 +120,7 @@ simplemapreduce.run(items, mapfn, newfn, processfn);
 under development. Current implementation internally uses `runSync`.
 Example:
 ```js
+simplemapreduce.run(
     ["A", "word", "is", "a", "word"], 
     function (key, value, context) { context.emit(value.toLowerCase(), 1); },
     function (key) { return { word: key, count: 0 }; },
