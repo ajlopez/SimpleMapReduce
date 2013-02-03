@@ -17,7 +17,8 @@ var task = {
     process: function (key, value, result) { result.count += value; }
 };
 
-var result = simplemapreduce.runTask(task, function (result) {
+var result = simplemapreduce.runTask(task, function (err, result) {
+    assert.ok(!err);
     assert.ok(result);
     assert.ok(result.a);
     assert.equal(result.a.count, 2);

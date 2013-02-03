@@ -14,7 +14,8 @@ simplemapreduce.run(
     function (key, value, context) { context.emit(value.toLowerCase(), 1); },
     function (key) { return { word: key, count: 0 }; },
     function (key, value, result) { result.count += value; },
-    function (result) {
+    function (err, result) {
+        assert.ok(!err);
         assert.ok(result);
         assert.ok(result.a);
         assert.equal(result.a.count, 2);
