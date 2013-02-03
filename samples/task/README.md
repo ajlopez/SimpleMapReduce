@@ -29,3 +29,8 @@ The output:
 { a: { count: 2 }, word: { count: 2 }, is: { count: 1 } }
 ```
 
+The implementation is naive. It uses `next` callbacks but without async calls in `map` or `process`.
+If there were thousands of items or key/values produced by `map`, this approach would generate 
+a lot of stacked calls.
+
+
