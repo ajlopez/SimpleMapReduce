@@ -5,9 +5,9 @@ var simplemessages = require('simplemessages'),
 var task = {
     items: ["A", "word", "is", "a", "word"], 
     getItems: function () { return this.items; },
-    map: function (key, value, context) { context.emit(value.toLowerCase(), 1); },
+    map: function (key, value, context, next) { context.emit(value.toLowerCase(), 1); next(); },
     newResult: function (key) { return { count: 0 }; },
-    process: function (key, value, result) { result.count += value; }
+    process: function (key, value, result, next) { result.count += value; next(); }
 };
 
 // To encode functions
