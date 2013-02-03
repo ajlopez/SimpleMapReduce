@@ -12,7 +12,7 @@ client.on('message', function(msg) {
     var encodedtask = msg.task;
     var task = simplefunc.decode(encodedtask);
     simplemapreduce.runTask(task,
-        function (result) { console.dir(result); process.exit(0); });
+        function (err, result) { console.dir(result); process.exit(0); });
 });
 
 client.connect(3000, 'localhost');
